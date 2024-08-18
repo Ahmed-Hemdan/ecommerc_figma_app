@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "632678511674",
+    "project_id": "e-commerce-figma-app",
+    "storage_bucket": "e-commerce-figma-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632678511674:android:cdb3d87bc9476a08e7f103",
+        "android_client_info": {
+          "package_name": "com.example.ecommerc_figma_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0VJPvwmT_ryF-l_6LI9sjDQ9a1vMtwqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
