@@ -25,7 +25,7 @@ class _WishListScreenState extends State<WishListScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             children: [
               const AppbarCom(),

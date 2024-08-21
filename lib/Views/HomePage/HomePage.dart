@@ -1,10 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerc_figma_app/Models/product_model.dart';
 import 'package:ecommerc_figma_app/Views/Components/Appbar.dart';
 import 'package:ecommerc_figma_app/Views/Components/Search.dart';
 import 'package:ecommerc_figma_app/Views/HomePage/Components/DealOfTheDay.dart';
 import 'package:ecommerc_figma_app/Views/HomePage/Components/SpecialOffer.dart';
 import 'package:ecommerc_figma_app/Views/HomePage/Controller/HomePageController.dart';
 import 'package:ecommerc_figma_app/Views/HomePage/Components/ProductCard.dart';
+import 'package:ecommerc_figma_app/Views/ProductDetails/ProductDetailsScreen.dart';
+import 'package:ecommerc_figma_app/Views/ProductDetails/controller/product_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,9 +26,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomePageController _controller = Get.put(HomePageController());
-  final TextEditingController _searchContorller = TextEditingController(); 
+  final TextEditingController _searchContorller = TextEditingController();
   @override
   void dispose() {
+    _controller.dispose();
     _searchContorller.dispose();
     super.dispose();
   }
@@ -41,7 +45,9 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 const AppbarCom(),
-                SearchField(controller: _searchContorller,),
+                SearchField(
+                  controller: _searchContorller,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -126,13 +132,15 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                 ),
-                AnimatedSmoothIndicator(
-                  activeIndex: _controller.currentIndex.value,
-                  count: _controller.bannersData.length,
-                  effect: const SlideEffect(
-                    activeDotColor: Color(0xffFFA3B3),
-                    dotHeight: 9,
-                    dotWidth: 9,
+                GetX<HomePageController>(
+                  builder: (context) => AnimatedSmoothIndicator(
+                    activeIndex: _controller.currentIndex.value,
+                    count: _controller.bannersData.length,
+                    effect: const SlideEffect(
+                      activeDotColor: Color(0xffFFA3B3),
+                      dotHeight: 9,
+                      dotWidth: 9,
+                    ),
                   ),
                 ),
                 const DealOfTheDay(
@@ -267,33 +275,54 @@ class _HomePageState extends State<HomePage> {
                   builder: (controller) => controller.allProducts.isEmpty
                       ? Container()
                       : GridView.builder(
-                        shrinkWrap: true,
+                          shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio:
-                                0.75, // Adjust aspect ratio as needed
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            mainAxisExtent: 330
-                          ),
+                                  crossAxisCount: 2,
+                                  childAspectRatio:
+                                      0.75, // Adjust aspect ratio as needed
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                  mainAxisExtent: 330),
                           itemCount: controller.allProducts.length,
-                          itemBuilder: (context, index) => ProtraitProductCard(
-                            value: controller.allProducts[index]['rate'],
-                            image: controller.allProducts[index]['image'],
-                            title: controller.allProducts[index]['title'],
-                            description: controller.allProducts[index]
-                                ['description'],
-                            price: controller.allProducts[index]
-                                ['realTimePrice'],
-                            oldPrice: controller.allProducts[index ]
-                                ['oldPrice'],
-                            sale: controller.allProducts[index]['sale'],
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              Get.lazyPut(()=>ProductDetailsCotroller( controller.allProducts[index]['cat']));
+                              Get.to(
+                                const ProductDetailsScreen(),
+                                arguments: 
+                              
+                                Product(
+                                  title: controller.allProducts[index]['title'],
+                                  image: controller.allProducts[index]['image'],
+                                  oldPrice: controller.allProducts[index]
+                                      ['oldPrice'],
+                                  realTimePrice: controller.allProducts[index]
+                                      ['realTimePrice'],
+                                  sale: controller.allProducts[index]['sale'],
+                                  rate: controller.allProducts[index]['rate'],
+                                  description: controller.allProducts[index]
+                                      ['description'],
+                                  cat: controller.allProducts[index]['cat'],
+                                ), 
+                              );
+                            },
+                            child: ProtraitProductCard(
+                              value: controller.allProducts[index]['rate'],
+                              image: controller.allProducts[index]['image'],
+                              title: controller.allProducts[index]['title'],
+                              description: controller.allProducts[index]
+                                  ['description'],
+                              price: controller.allProducts[index]
+                                  ['realTimePrice'],
+                              oldPrice: controller.allProducts[index]
+                                  ['oldPrice'],
+                              sale: controller.allProducts[index]['sale'],
+                            ),
                           ),
                         ),
                 ),
-                
               ],
             ),
           ),
@@ -302,5 +331,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-

@@ -5,6 +5,7 @@ import 'package:ecommerc_figma_app/Views/MainScreen/MainScreen.dart';
 import 'package:ecommerc_figma_app/Views/OnboardingScreens/OnboardingScreen.dart';
 import 'package:ecommerc_figma_app/Views/ProductDetails/ProductDetailsScreen.dart';
 import 'package:ecommerc_figma_app/Views/TestScreen/TestScreen.dart';
+import 'package:ecommerc_figma_app/Views/WishList/wish_list_screen.dart';
 import 'package:ecommerc_figma_app/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -54,8 +55,8 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             // home: const MainScreen(),
-            // home: FirebaseAuth.instance.currentUser == null ? const OnboardingScreen() : const MainScreen(),
-            home: const ProductDetailsScreen(),
+            home: FirebaseAuth.instance.currentUser == null ? const OnboardingScreen() : const MainScreen(),
+            // home: const ProductDetailsScreen(),
           ),
         );
       },

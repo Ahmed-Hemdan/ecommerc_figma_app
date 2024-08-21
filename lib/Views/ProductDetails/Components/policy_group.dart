@@ -9,7 +9,7 @@ class PolicyGroub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 4.h,
+      height: 3.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xff828282), width: 1.3),
@@ -21,14 +21,14 @@ class PolicyGroub extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 15.sp,
+              size: 13.sp,
               color: const Color(0xff828282),
             ),
             Text(
               text,
               style: TextStyle(
                 color: const Color(0xff828282),
-                fontSize: 15.sp,
+                fontSize: 13.sp,
               ),
             ),
           ],

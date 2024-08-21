@@ -1,13 +1,12 @@
 import 'package:ecommerc_figma_app/Views/CartScreen/cart_screen.dart';
 import 'package:ecommerc_figma_app/Views/HomePage/HomePage.dart';
-import 'package:ecommerc_figma_app/Views/MainScreen/Controller/MainScreenController.dart';
 import 'package:ecommerc_figma_app/Views/SearchScreen/search_screen.dart';
 import 'package:ecommerc_figma_app/Views/SettingScreen/setting_screen.dart';
 import 'package:ecommerc_figma_app/Views/WishList/wish_list_screen.dart';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import "package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart";
-import 'package:screen_go/extensions/responsive_nums.dart';
+
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -17,22 +16,20 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final MainScreenController _controller = Get.put(MainScreenController());
-
   List<PersistentTabConfig> navBarsItems = [
     PersistentTabConfig(
-      screen: HomePage(),
+      screen: const HomePage(),
       item: ItemConfig(
-        icon: Icon(Icons.home),
+        icon: const Icon(Icons.home),
         title: "Home",
         activeForegroundColor: const Color(0xffEB3030),
         inactiveForegroundColor: Colors.black,
       ),
     ),
     PersistentTabConfig(
-      screen: WishListScreen(),
+      screen: const WishListScreen(),
       item: ItemConfig(
-        icon: Icon(Icons.favorite),
+        icon: const Icon(Icons.favorite),
         title: "WhishList",
         activeForegroundColor: const Color(0xffEB3030),
         inactiveForegroundColor: Colors.black,
@@ -45,7 +42,6 @@ class _MainScreenState extends State<MainScreen> {
         title: "",
         activeForegroundColor: const Color(0xffEB3030),
         inactiveBackgroundColor: Colors.white,
-        
         inactiveForegroundColor: Colors.black,
       ),
     ),
@@ -54,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
       item: ItemConfig(
         icon: const Icon(Icons.search),
         title: "Search",
-       activeForegroundColor: const Color(0xffEB3030),
+        activeForegroundColor: const Color(0xffEB3030),
         inactiveForegroundColor: Colors.black,
       ),
     ),
@@ -63,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
       item: ItemConfig(
         icon: const Icon(Icons.settings),
         title: "Setting",
-       activeForegroundColor: const Color(0xffEB3030),
+        activeForegroundColor: const Color(0xffEB3030),
         inactiveForegroundColor: Colors.black,
       ),
     ),
@@ -71,7 +67,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
-      navBarHeight: 7.8.h,
       tabs: navBarsItems,
       navBarBuilder: (navBarConfig) => Style15BottomNavBar(
         navBarConfig: navBarConfig,

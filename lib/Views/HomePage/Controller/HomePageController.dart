@@ -1,5 +1,5 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerc_figma_app/Models/product_model.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
@@ -14,20 +14,16 @@ class HomePageController extends GetxController {
     super.onInit();
   }
 
-
   var fireIns = FirebaseFirestore.instance;
 // fetch categories
   RxList categoriesData = [].obs;
   Future<void> getCategories() async {
     try {
       categoriesData.clear();
-      var data =
-          await fireIns.collection("Categories").get();
+      var data = await fireIns.collection("Categories").get();
       categoriesData.addAll(data.docs.map((doc) => doc.data()));
     } catch (e) {
-      print("======================================");
-      print("eror with get categories $e =====================");
-      print("====================================");
+      null;
     }
   }
 
@@ -39,15 +35,13 @@ class HomePageController extends GetxController {
       final data = await fireIns.collection("Banners").get();
       bannersData.addAll(data.docs.map((e) => e.data()));
     } catch (e) {
-      print("======================================");
-      print("eror with get Banners $e =====================");
-      print("====================================");
+      null;
     }
   }
 
   RxInt currentIndex = 0.obs;
   void changeIndex(int index) {
-    currentIndex.value = index ;
+    currentIndex.value = index;
   }
 
   //fetch all products
@@ -56,14 +50,12 @@ class HomePageController extends GetxController {
   Future<void> gatAllProducts() async {
     try {
       allProducts.clear();
-      var res = await fireIns
-          .collection("AllProducts").get();
+      var res = await fireIns.collection("AllProducts").get();
+      // allProducts = res.docs.map((e) => Product.fromJson(e.data())).toList();
       allProducts.addAll(res.docs.map((e) => e.data()));
-      print('=====================================');
-      print(allProducts.length);
-      print(allProducts[5]["description"]);
-      print("=========================================");
-    } catch (e) {}
+    } catch (e) {
+      null;
+    }
   }
 
   RxList womenProducts = [].obs;
@@ -76,32 +68,25 @@ class HomePageController extends GetxController {
           .doc("Wonmen's")
           .collection("Women'sProducts")
           .get();
-
       womenProducts.addAll(data.docs.map((e) => e.data()));
       womenProducts.shuffle();
-      // print("+++++++++++++++++++++++++++++++++++++++++++");
-      print(womenProducts[0]);
-      // print("+++++++++++++++++++++++++++++++++++");
     } catch (e) {
-      print("======================================");
-      print("eror while get All Products $e =====================");
-      print("====================================");
+      null;
     }
   }
 
-  // get Special offer 
+  // get Special offer
   RxList specialOfferImage = [].obs;
-  Future<void> getSpecialOffer()async{
-    specialOfferImage.clear() ;
+  Future<void> getSpecialOffer() async {
+    specialOfferImage.clear();
     var data = await fireIns.collection("SpecialOffer").get();
-      specialOfferImage.addAll(data.docs.map((e)=> e.data()));
+    specialOfferImage.addAll(data.docs.map((e) => e.data()));
   }
 
-
-  // get flat and heel image 
-  RxList flatandheel =  [].obs  ;
-  Future<void>  getFlatAndHeel()async{
-  var data = await fireIns.collection("Heels").get() ;
-  flatandheel.addAll(data.docs.map((e)=> e.data()));
+  // get flat and heel image
+  RxList flatandheel = [].obs;
+  Future<void> getFlatAndHeel() async {
+    var data = await fireIns.collection("Heels").get();
+    flatandheel.addAll(data.docs.map((e) => e.data()));
   }
 }
