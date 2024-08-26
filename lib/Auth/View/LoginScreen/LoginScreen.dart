@@ -20,11 +20,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final emailReg = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+  final authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     _emailController.dispose();
+    authController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -107,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 5.h,
                 ),
                 GetBuilder<AuthController>(
-                  init: AuthController(),
+                  
                   builder: (controller) {
                     if (controller.isLoading == false) {
                       return Center(
@@ -138,17 +140,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     "- OR Continue with -",
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(20.0),
+                 Padding(
+                  padding:const  EdgeInsets.all(20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      MediaLogin(
-                        mediaImagePath:
-                            'assets/images/AuthLogos/google_logo.png',
+                      InkWell(
+                        onTap: () {
+                          authController.signInWithGoogle();
+                        },
+                        child: const MediaLogin(
+                          mediaImagePath:
+                              'assets/images/AuthLogos/google_logo.png',
+                        ),
                       ),
-                      SizedBox(width: 15),
-                      MediaLogin(
+                      const SizedBox(width: 15),
+                      const MediaLogin(
                         mediaImagePath:
                             'assets/images/AuthLogos/facebook_logo.png',
                       ),
