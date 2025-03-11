@@ -46,13 +46,13 @@ class HomePageController extends GetxController {
 
   //fetch all products
 
-  RxList allProducts = [].obs;
+  RxList<Product> allProducts = <Product>[].obs;
   Future<void> gatAllProducts() async {
     try {
       allProducts.clear();
       var res = await fireIns.collection("AllProducts").get();
       // allProducts = res.docs.map((e) => Product.fromJson(e.data())).toList();
-      allProducts.addAll(res.docs.map((e) => e.data()));
+      allProducts.addAll(res.docs.map((e) => Product.fromJson(e.data())));
     } catch (e) {
       null;
     }
@@ -62,6 +62,8 @@ class HomePageController extends GetxController {
 
   Future<void> getWomenProducts() async {
     try {
+
+      
       womenProducts.clear();
       var data = await fireIns
           .collection("AllProducts")

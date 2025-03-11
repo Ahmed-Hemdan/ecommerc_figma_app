@@ -1,21 +1,17 @@
 
-import 'package:ecommerc_figma_app/UploadScreen.dart';
-import 'package:ecommerc_figma_app/Views/HomePage/HomePage.dart';
+// import 'package:ecommerc_figma_app/Views/CartScreen/cart_screen.dart';
 import 'package:ecommerc_figma_app/Views/MainScreen/MainScreen.dart';
 import 'package:ecommerc_figma_app/Views/OnboardingScreens/OnboardingScreen.dart';
-import 'package:ecommerc_figma_app/Views/ProductDetails/ProductDetailsScreen.dart';
-import 'package:ecommerc_figma_app/Views/TestScreen/TestScreen.dart';
-import 'package:ecommerc_figma_app/Views/WishList/wish_list_screen.dart';
-import 'package:ecommerc_figma_app/Views/checkout/checkout_screen.dart';
+
 import 'package:ecommerc_figma_app/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:screen_go/screen_go.dart';
 
-import 'Auth/View/LoginScreen/LoginScreen.dart';
 import 'Routes/Routes.dart';
 
 void main() async{
@@ -47,7 +43,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               textButtonTheme: TextButtonThemeData(
                 style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.all(Colors.transparent),
+                  overlayColor: WidgetStateProperty.all(Colors.transparent),
                 )
               ),
               scaffoldBackgroundColor: const Color(0xfff9f9f9),
@@ -59,6 +55,7 @@ class MyApp extends StatelessWidget {
             home: FirebaseAuth.instance.currentUser == null ? const OnboardingScreen() : const MainScreen(),
             // home: const ProductDetailsScreen(),
             // home: const CheckoutScreen(),
+            // home: const CartScreen()
           ),
         );
       },

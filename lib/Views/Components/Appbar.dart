@@ -6,18 +6,21 @@ class AppbarCom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Image.asset(
-          "assets/images/logo.png",
-          width: 50.w,
-        ),
-        Image.asset(
-          'assets/images/Profile/profile.png',
-          width: 11.w,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8 , vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset(
+            "assets/images/logo.png",
+            width: 50.w,
+          ),
+          Image.asset(
+            'assets/images/Profile/profile.png',
+            width: 11.w,
+          ),
+        ],
+      ),
     );
   }
 }

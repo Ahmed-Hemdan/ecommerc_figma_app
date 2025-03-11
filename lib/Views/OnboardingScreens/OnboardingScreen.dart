@@ -44,14 +44,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             TextSpan(
                               text: "${index + 1}",
                               style: TextStyle(
-                                fontSize: 18.sp,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             TextSpan(
                               text: "/3",
                               style: TextStyle(
-                                fontSize: 18.sp,
+                                fontSize: 16.sp,
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -66,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: Text(
                           "Skip",
                           style: TextStyle(
-                              fontSize: 18.sp,
+                              fontSize: 16.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.w500),
                         ),
@@ -137,7 +137,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: Text(
                           "Prev",
                           style: TextStyle(
-                            fontSize: 18.sp,
+                            fontSize: 16.sp,
                             color: Colors.grey,
                           ),
                         ),
@@ -147,8 +147,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         count: imagelist.length,
                         effect: const ExpandingDotsEffect(
                             activeDotColor: Color(0xff17223B),
-                            dotWidth: 13,
-                            dotHeight: 13), // your preferred effect
+                            dotWidth: 9,
+                            dotHeight: 9,), // your preferred effect
                         onDotClicked: (index) {},
                       ),
                       TextButton(
@@ -168,7 +168,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ? "Get Started"
                               : "Next",
                           style: TextStyle(
-                            fontSize: 18.sp,
+                            fontSize: 16.sp,
                             color: mainColor,
                           ),
                         ),

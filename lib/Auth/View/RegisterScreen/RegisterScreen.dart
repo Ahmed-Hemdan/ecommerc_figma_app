@@ -1,5 +1,3 @@
-
-
 import 'package:ecommerc_figma_app/Colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+    final authController = Get.put(AuthController());
   final emailReg = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -73,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   AuthTextFormField(
                     validator: (value) {
                       if (value!.isNotEmpty) {
-                       return null;
+                        return null;
                       } else {
                         return "password can't be empty";
                       }
@@ -122,19 +121,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   GetBuilder<AuthController>(
                     init: AuthController(),
                     builder: (controller) {
-                     return Center(
-                          child: MainButton(
-                            text: 'Create account',
-                            width: double.infinity,
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                controller.registerWithEmail(
-                                    _emailController.text,
-                                    _passwordController.text);
-                              }
-                            },
-                          ),
-                        );
+                      return Center(
+                        child: MainButton(
+                          text: 'Create account',
+                          width: double.infinity,
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              controller.registerWithEmail(
+                                  _emailController.text,
+                                  _passwordController.text);
+                            }
+                          },
+                        ),
+                      );
                     },
                   ),
                   SizedBox(
@@ -145,21 +144,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "- OR Continue with -",
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        MediaLogin(
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () {
+                          authController.signInWithGoogle();
+                        },
+                        child: const MediaLogin(
                           mediaImagePath:
                               'assets/images/AuthLogos/google_logo.png',
                         ),
-                        SizedBox(width: 15),
-                        MediaLogin(
-                          mediaImagePath:
-                              'assets/images/AuthLogos/facebook_logo.png',
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                   Row(

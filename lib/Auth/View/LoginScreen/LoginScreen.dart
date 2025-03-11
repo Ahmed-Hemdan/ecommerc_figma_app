@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:screen_go/extensions/responsive_nums.dart';
 
-import '../../../UploadScreen.dart';
 import '../../../Views/Components/Mainbutton.dart';
 import '../../Controller/AuthController.dart';
 import '../Components/LoginWithMedia.dart';
@@ -140,28 +139,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     "- OR Continue with -",
                   ),
                 ),
-                 Padding(
-                  padding:const  EdgeInsets.all(20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          authController.signInWithGoogle();
-                        },
-                        child: const MediaLogin(
-                          mediaImagePath:
-                              'assets/images/AuthLogos/google_logo.png',
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      const MediaLogin(
-                        mediaImagePath:
-                            'assets/images/AuthLogos/facebook_logo.png',
-                      ),
-                    ],
-                  ),
-                ),
+                 Center(
+                   child: Padding(
+                     padding: const EdgeInsets.all(20.0),
+                     child: InkWell(
+                            onTap: () {
+                              authController.signInWithGoogle();
+                            },
+                            child: const MediaLogin(
+                              mediaImagePath:
+                                  'assets/images/AuthLogos/google_logo.png',
+                            ),
+                          ),
+                   ),
+                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerc_figma_app/Auth/models/user_model.dart';
-import 'package:ecommerc_figma_app/Views/GetStarted/GetStratedScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -153,35 +151,21 @@ class AuthController extends GetxController {
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance.signInWithCredential(credential);
     try {
-          var value = await FirebaseAuth.instance
-          .signInWithCredential(credential);
-          if (value.additionalUserInfo!.isNewUser ) {
-             await FirebaseFirestore.instance
-              .collection('Users')
-              .doc(value.user!.email)
-              .set({
-            "email": value.user!.email,
-            "name": value.user!.displayName,
-            "photoUrl": value.user!.photoURL,
-            "id": value.user!.uid,
-          });
-          Get.toNamed("/GetStartedScreen");
-          }
-      //     .then((value) async {
-      //   if (value.additionalUserInfo!.isNewUser) {
-      //     // UserModel user = UserModel(
-      //     //   email: value.user!.email,
-      //     //   name: value.user!.displayName,
-      //     //   photoUrl: value.user!.photoURL,
-      //     //   id: value.user!.uid,
-      //     // );
-         
-      //   }
-      // });
+      var value = await FirebaseAuth.instance.signInWithCredential(credential);
+      if (value.additionalUserInfo != null) {
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(value.user!.email)
+            .set({
+          "email": value.user!.email,
+          "name": value.user!.displayName,
+          "photoUrl": value.user!.photoURL,
+          "id": value.user!.uid,
+        });
+        Get.toNamed("/GetStartedScreen");
+      }
     } catch (e) {
-      print("================================================");
-      print("Error in google sign in $e");
-      print("================================================");
+      null;
     }
   }
 

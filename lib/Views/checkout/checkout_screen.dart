@@ -1,7 +1,6 @@
 import 'package:ecommerc_figma_app/Views/Components/Mainbutton.dart';
 import 'package:ecommerc_figma_app/Views/checkout/components/text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:screen_go/extensions/responsive_nums.dart';
 

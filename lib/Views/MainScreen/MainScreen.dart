@@ -40,9 +40,11 @@ class _MainScreenState extends State<MainScreen> {
       item: ItemConfig(
         icon: const Icon(Icons.shopping_cart),
         title: "",
-        activeForegroundColor: const Color(0xffEB3030),
-        inactiveBackgroundColor: Colors.white,
-        inactiveForegroundColor: Colors.black,
+        activeForegroundColor: Colors.white,
+      
+        inactiveBackgroundColor: const Color(0xffEB3030),
+        activeColorSecondary: Colors.red,
+        inactiveForegroundColor: Colors.red,
       ),
     ),
     PersistentTabConfig(

@@ -1,4 +1,3 @@
-import 'package:ecommerc_figma_app/Models/product_model.dart';
 import 'package:ecommerc_figma_app/Views/Components/FilterButton.dart';
 import 'package:ecommerc_figma_app/Views/HomePage/Components/ProductCard.dart';
 import 'package:ecommerc_figma_app/Views/ProductDetails/Components/go_to_cart.dart';
@@ -7,20 +6,17 @@ import 'package:ecommerc_figma_app/Views/ProductDetails/Components/view_similar.
 import 'package:ecommerc_figma_app/Views/ProductDetails/controller/product_details_controller.dart';
 import 'package:ecommerc_figma_app/Views/checkout/checkout_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
 import 'package:screen_go/extensions/responsive_nums.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
- 
-const ProductDetailsScreen({super.key});
-
+  const ProductDetailsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-  final Product product = Get.arguments;
-    
+  Widget build(BuildContext context){
+    final controller = Get.put(ProductDetailsCotroller(Get.arguments));
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -28,35 +24,46 @@ const ProductDetailsScreen({super.key});
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: Icon(Icons.arrow_back_ios, size: 22.sp),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(Icons.arrow_back_ios, size: 20.sp),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      controller.addToFavorite(controller.product);
+                    },
+                    icon: Icon(Icons.favorite, size: 20.sp),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      
                       SizedBox(
                         height: 28.h,
                         child: Center(
                           child: Image.network(
                             fit: BoxFit.fitHeight,
-                            product.image,),
+                            controller.product.image,
+                          ),
                         ),
                       ),
                       const SizedBox(
                         height: 15,
                       ),
                       Text(
-                        product.title,
+                        controller.product.title,
                         style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w500,
@@ -69,7 +76,7 @@ const ProductDetailsScreen({super.key});
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             RatingStars(
-                              value: product.rate,
+                              value: controller.product.rate,
                               starBuilder: (index, color) => Icon(
                                 Icons.star,
                                 color: color,
@@ -79,7 +86,8 @@ const ProductDetailsScreen({super.key});
                               valueLabelVisibility: false,
                               maxValue: 5,
                               starSpacing: 1,
-                              animationDuration: const Duration(milliseconds: 1000),
+                              animationDuration:
+                                  const Duration(milliseconds: 1000),
                               starOffColor: const Color(0xffe7e8ea),
                               starColor: const Color(0xffedb310),
                             ),
@@ -88,7 +96,8 @@ const ProductDetailsScreen({super.key});
                             ),
                             Text(
                               "56,890",
-                              style: TextStyle(fontSize: 16.sp, color: Colors.grey),
+                              style: TextStyle(
+                                  fontSize: 16.sp, color: Colors.grey),
                             ),
                           ],
                         ),
@@ -96,7 +105,7 @@ const ProductDetailsScreen({super.key});
                       Row(
                         children: [
                           Text(
-                            product.oldPrice,
+                            controller.product.oldPrice,
                             style: TextStyle(
                               fontSize: 15.sp,
                               color: Colors.grey,
@@ -107,16 +116,17 @@ const ProductDetailsScreen({super.key});
                             width: 8,
                           ),
                           Text(
-                            product.realTimePrice,
+                            controller.product.realTimePrice,
                             style: TextStyle(fontSize: 15.sp),
                           ),
                           const SizedBox(
                             width: 8,
                           ),
                           Text(
-                            "${product.sale} OFF",
+                            "${controller.product.sale} OFF",
                             style: TextStyle(
-                                color: const Color(0xffFA7189), fontSize: 15.sp),
+                                color: const Color(0xffFA7189),
+                                fontSize: 15.sp),
                           ),
                         ],
                       ),
@@ -129,7 +139,7 @@ const ProductDetailsScreen({super.key});
                         ),
                       ),
                       Text(
-                        product.description,
+                        controller.product.description,
                         style: TextStyle(
                           fontSize: 15.sp,
                           overflow: TextOverflow.ellipsis,
@@ -161,10 +171,12 @@ const ProductDetailsScreen({super.key});
                           ),
                         ],
                       ),
-                       Row(
+                      Row(
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              controller.addToCart(controller.product);
+                            },
                             child: const GoToCart(
                               gradientColor: [
                                 Color(0xff14459d),
@@ -172,7 +184,7 @@ const ProductDetailsScreen({super.key});
                               ],
                               iconColor: Color.fromARGB(255, 34, 87, 187),
                               icon: Icons.shopping_cart_outlined,
-                              text: "Go To Cart",
+                              text: "Add To Cart",
                             ),
                           ),
                           InkWell(
@@ -198,20 +210,22 @@ const ProductDetailsScreen({super.key});
                           color: const Color(0xffFFCCD5),
                         ),
                         child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 9.0.w, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 9.0.w, vertical: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "Delivered in",
                                 style: TextStyle(
-                                    fontSize: 15.sp, fontWeight: FontWeight.w600),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                               Text(
                                 "Within 1 Hour",
                                 style: TextStyle(
-                                    fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -235,16 +249,18 @@ const ProductDetailsScreen({super.key});
                       ),
                       Text(
                         "Similar To",
-                        style:
-                            TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 20.sp, fontWeight: FontWeight.w600),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "282+ Iteams ",
-                            style: TextStyle(
-                                fontSize: 19.sp, fontWeight: FontWeight.w600),
+                          GetX<ProductDetailsCotroller>(
+                            builder: (controller) => Text(
+                              "${controller.similarProducts.length}  Iteams ",
+                              style: TextStyle(
+                                  fontSize: 19.sp, fontWeight: FontWeight.w600),
+                            ),
                           ),
                           FilterRow(
                             onTap1: () {},
@@ -263,39 +279,46 @@ const ProductDetailsScreen({super.key});
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: GetX<ProductDetailsCotroller>(
-                              builder: (controller) =>
-                                  controller.similarProducts.isNotEmpty
-                                      ? ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          physics: const BouncingScrollPhysics(),
-                                          itemCount: controller.similarProducts.length,
-                                          itemBuilder: (context, index) {
-                                            return Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: GetX<ProductDetailsCotroller>(
-                                                builder: (controller) =>
-                                                    ProtraitProductCard(
-                                                  value: controller.similarProducts[index]
-                                                      ['rate'],
-                                                  image: controller.similarProducts[index]
-                                                      ['image'],
-                                                  title: controller.similarProducts[index]
-                                                      ['title'],
-                                                  description:
-                                                      controller.similarProducts[index]
-                                                          ['description'],
-                                                  price: controller.similarProducts[index]
-                                                      ['realTimePrice'],
-                                                  oldPrice: controller
-                                                      .similarProducts[index]['oldPrice'],
-                                                  sale: controller.similarProducts[index]
-                                                      ['sale'],
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        )
-                                      : Container(),
+                              builder: (controller) => controller
+                                      .similarProducts.isNotEmpty
+                                  ? ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      physics: const BouncingScrollPhysics(),
+                                      itemCount:
+                                          controller.similarProducts.length,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GetX<ProductDetailsCotroller>(
+                                            builder: (controller) =>
+                                                ProtraitProductCard(
+                                              value: controller
+                                                      .similarProducts[index]
+                                                  ['rate'],
+                                              image: controller
+                                                      .similarProducts[index]
+                                                  ['image'],
+                                              title: controller
+                                                      .similarProducts[index]
+                                                  ['title'],
+                                              description: controller
+                                                      .similarProducts[index]
+                                                  ['description'],
+                                              price: controller
+                                                      .similarProducts[index]
+                                                  ['realTimePrice'],
+                                              oldPrice: controller
+                                                      .similarProducts[index]
+                                                  ['oldPrice'],
+                                              sale: controller
+                                                      .similarProducts[index]
+                                                  ['sale'],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : Container(),
                             ),
                           ),
                         ),

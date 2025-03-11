@@ -1,11 +1,11 @@
 import 'package:ecommerc_figma_app/Views/CartScreen/cart_screen.dart';
+import 'package:ecommerc_figma_app/Views/CatScreen/CatScreen.dart';
 import 'package:ecommerc_figma_app/Views/OnboardingScreens/OnboardingScreen.dart';
 import 'package:ecommerc_figma_app/Views/SearchScreen/search_screen.dart';
 import 'package:ecommerc_figma_app/Views/SettingScreen/setting_screen.dart';
 import 'package:ecommerc_figma_app/Views/SplashScreen/SplashScreen.dart';
 import 'package:ecommerc_figma_app/Views/WishList/wish_list_screen.dart';
 import 'package:get/get.dart';
-
 import '../Auth/View/ForgetPasswordScreen/ForgetPasswordScreen.dart';
 import '../Auth/View/LoginScreen/LoginScreen.dart';
 import '../Auth/View/RegisterScreen/RegisterScreen.dart';
@@ -25,4 +25,5 @@ List<GetPage> routes = [
   GetPage(name: "/CartScreen", page: () => const CartScreen()),
   GetPage(name: "/SearchScreen", page: () => const SearchScreen()),
   GetPage(name: "/SettingScreen", page: () => const SettingScreen()),
+  GetPage(name: "/CatScreen", page: () =>  CategoryScreen()),
 ];

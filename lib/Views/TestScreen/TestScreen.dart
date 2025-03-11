@@ -1,6 +1,4 @@
-import 'package:ecommerc_figma_app/Views/HomePage/Controller/HomePageController.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:screen_go/extensions/responsive_nums.dart';
 
 class TestScreen extends StatefulWidget {

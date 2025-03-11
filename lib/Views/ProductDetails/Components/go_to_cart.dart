@@ -17,14 +17,14 @@ class GoToCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 35.w,
+      width: 45.w,
       height: 7.h,
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.centerRight,
+          Padding(
+            padding:  EdgeInsets.only(left: 10.w , right: 5 , top: 9),
             child: Container(
-              width: 25.w,
+              width:38.w,
               height: 5.h,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -34,17 +34,14 @@ class GoToCart extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15.sp,
-                    ),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15.sp,
                   ),
                 ),
               ),
