@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:screen_go/extensions/responsive_nums.dart';
@@ -17,18 +15,27 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
-    final emailReg = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
-    final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
+  final emailReg = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-    @override
+  @override
   void dispose() {
-    _emailController.dispose()  ;
+    _emailController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back_ios, size: 20.sp),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -37,10 +44,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               Text(
                 "Forgot",
                 style: TextStyle(
-                  fontSize: 27.sp,
+                  fontSize: 25.sp,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -48,22 +58,22 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 "password?",
                 style: TextStyle(
                   height: 1,
-                  fontSize: 27.sp,
+                  fontSize: 25.sp,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 4.0.h),
+                padding: EdgeInsets.symmetric(vertical: 3.0.h),
                 child: Form(
                   key: _formKey,
                   child: AuthTextFormField(
                     validator: (value) {
-                        if (value!.isNotEmpty && emailReg.hasMatch(value)) {
-                          return null;
-                        } else {
-                          return "Please enter a valid email";
-                        }
-                      },
+                      if (value!.isNotEmpty && emailReg.hasMatch(value)) {
+                        return null;
+                      } else {
+                        return "Please enter a valid email";
+                      }
+                    },
                     isSecure: false,
                     hintText: "Email",
                     controller: _emailController,
@@ -79,7 +89,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   children: const [
                     TextSpan(
                       text:
-                          " We will send you a message to set or reset your new password",
+                          " We will send you a message to set or reset \n   your new password",
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -88,17 +98,19 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 ),
               ),
               SizedBox(
-                height: 10.h,
+                height: 5.h,
               ),
-             GetBuilder<AuthController>(
-              init: AuthController(),
-              builder: (controller) => 
-                MainButton(text: "Submit", width: double.infinity, onPressed: (){
-                  if(_formKey.currentState!.validate()){
-                    controller.resetPassowrd(_emailController.text);
-                  }
-               }),
-             ),
+              GetBuilder<AuthController>(
+                init: AuthController(),
+                builder: (controller) => MainButton(
+                    text: "Submit",
+                    width: double.infinity,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        controller.resetPassowrd(_emailController.text);
+                      }
+                    }),
+              ),
             ],
           ),
         ),

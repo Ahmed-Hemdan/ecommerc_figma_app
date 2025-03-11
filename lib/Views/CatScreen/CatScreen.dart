@@ -59,6 +59,8 @@ class CategoryScreen extends StatelessWidget {
                           itemBuilder: (context, index) => InkWell(
                             onTap: () => Get.to(const ProductDetailsScreen(),
                                 arguments: Product(
+                                  isFavorite:
+                                      controller.catProducts[index].isFavorite,
                                   title: controller.catProducts[index].title,
                                   image: controller.catProducts[index].image,
                                   oldPrice:

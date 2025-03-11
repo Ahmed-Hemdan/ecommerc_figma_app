@@ -16,10 +16,11 @@ class CheckoutFormField extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: TextFormField(
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
+              hintText: title,
               focusedBorder: OutlineInputBorder(
                 borderSide:
                     const BorderSide(color: Color(0xffc8c8c8), width: 2.5),

@@ -14,7 +14,7 @@ class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final controller = Get.put(ProductDetailsCotroller(Get.arguments));
 
     return Scaffold(
@@ -33,12 +33,20 @@ class ProductDetailsScreen extends StatelessWidget {
                     },
                     icon: Icon(Icons.arrow_back_ios, size: 20.sp),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      controller.addToFavorite(controller.product);
-                    },
-                    icon: Icon(Icons.favorite, size: 20.sp),
-                  ),
+                  GetBuilder<ProductDetailsCotroller>(builder: (controller) {
+                    return IconButton(
+                      onPressed: () {
+                        controller.addAndRemveFavorite(controller.product);
+                      },
+                      icon: Icon(
+                        Icons.favorite,
+                        size: 20.sp,
+                        color: controller.product.isFavorite
+                            ? Colors.red
+                            : const Color.fromARGB(255, 93, 91, 91),
+                      ),
+                    );
+                  })
                 ],
               ),
               const SizedBox(

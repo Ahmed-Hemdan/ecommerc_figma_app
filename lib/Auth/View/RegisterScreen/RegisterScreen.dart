@@ -20,7 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-    final authController = Get.put(AuthController());
+  final authController = Get.put(AuthController());
   final emailReg = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -38,10 +38,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Text(
                     "Create an ",
                     style: TextStyle(
-                      fontSize: 27.sp,
+                      fontSize: 25.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -49,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     "account",
                     style: TextStyle(
                       height: 1,
-                      fontSize: 27.sp,
+                      fontSize: 25.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),

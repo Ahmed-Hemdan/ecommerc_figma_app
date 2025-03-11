@@ -44,10 +44,13 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
                 Text(
                   "Welcome",
                   style: TextStyle(
-                    fontSize: 27.sp,
+                    fontSize: 25.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -55,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   "Back!",
                   style: TextStyle(
                     height: 1,
-                    fontSize: 27.sp,
+                    fontSize: 25.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -94,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Get.toNamed('/ForgetPasswordScreen');
                     },
-                    child:  Text(
+                    child: Text(
                       "Forgot your password?",
                       style: TextStyle(
                         color: const Color(0xffFF4B26),
@@ -108,7 +111,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 5.h,
                 ),
                 GetBuilder<AuthController>(
-                  
                   builder: (controller) {
                     if (controller.isLoading == false) {
                       return Center(
@@ -119,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (_formKey.currentState!.validate()) {
                               controller.loginWithEmail(_emailController.text,
                                   _passwordController.text);
-                                  // Get.offAll(()=> const UploadScreen());
+                              // Get.offAll(()=> const UploadScreen());
                             }
                           },
                         ),
@@ -139,20 +141,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     "- OR Continue with -",
                   ),
                 ),
-                 Center(
-                   child: Padding(
-                     padding: const EdgeInsets.all(20.0),
-                     child: InkWell(
-                            onTap: () {
-                              authController.signInWithGoogle();
-                            },
-                            child: const MediaLogin(
-                              mediaImagePath:
-                                  'assets/images/AuthLogos/google_logo.png',
-                            ),
-                          ),
-                   ),
-                 ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: InkWell(
+                      onTap: () {
+                        authController.signInWithGoogle();
+                      },
+                      child: const MediaLogin(
+                        mediaImagePath:
+                            'assets/images/AuthLogos/google_logo.png',
+                      ),
+                    ),
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -12,7 +12,7 @@ class MainButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
                   width: width,
-                  height: 7.8.h,
+                  height: 7.h,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: mainColor,

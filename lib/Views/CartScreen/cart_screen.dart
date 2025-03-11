@@ -1,6 +1,8 @@
 import 'package:ecommerc_figma_app/Views/CartScreen/controller/cartController.dart';
 // import 'package:ecommerc_figma_app/Views/CartScreen/controller/controller.dart';
 import 'package:ecommerc_figma_app/Views/Components/Appbar.dart';
+import 'package:ecommerc_figma_app/Views/Components/Mainbutton.dart';
+import 'package:ecommerc_figma_app/Views/checkout/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
@@ -69,16 +71,22 @@ class _CartScreenState extends State<CartScreen> {
                     child: ListView.builder(
                       itemCount: controller.cartProducts.length,
                       itemBuilder: (context, index) {
-                        return CartItem(
-                          image: controller.cartProducts[index].image,
-                          description:
-                              controller.cartProducts[index].description,
-                          rate: controller.cartProducts[index].rate,
-                          realTimePrice:
-                              controller.cartProducts[index].realTimePrice,
-                          title: controller.cartProducts[index].title,
-                          sale: controller.cartProducts[index].sale,
-                          oldPrice: controller.cartProducts[index].oldPrice,
+                        return InkWell(
+                          onTap: () {
+                            Get.toNamed("/ProductDetails",
+                                arguments: controller.cartProducts[index]);
+                          },
+                          child: CartItem(
+                            image: controller.cartProducts[index].image,
+                            description:
+                                controller.cartProducts[index].description,
+                            rate: controller.cartProducts[index].rate,
+                            realTimePrice:
+                                controller.cartProducts[index].realTimePrice,
+                            title: controller.cartProducts[index].title,
+                            sale: controller.cartProducts[index].sale,
+                            oldPrice: controller.cartProducts[index].oldPrice,
+                          ),
                         );
                       },
                     ),
@@ -86,6 +94,13 @@ class _CartScreenState extends State<CartScreen> {
                 }
               },
             ),
+
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: MainButton(text: "PayNow", width: double.infinity, onPressed: (){
+                Get.to(const CheckoutScreen());
+              }),
+            )
           ],
         ),
       ),

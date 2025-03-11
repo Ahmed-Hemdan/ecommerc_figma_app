@@ -5,6 +5,7 @@ import 'package:ecommerc_figma_app/Views/SettingScreen/setting_screen.dart';
 import 'package:ecommerc_figma_app/Views/WishList/wish_list_screen.dart';
 
 import 'package:flutter/material.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
@@ -20,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     PersistentTabConfig(
       screen: const HomePage(),
       item: ItemConfig(
-        icon: const Icon(Icons.home),
+        icon: const Icon(IconsaxPlusLinear.home_1,),
         title: "Home",
         activeForegroundColor: const Color(0xffEB3030),
         inactiveForegroundColor: Colors.black,
@@ -29,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
     PersistentTabConfig(
       screen: const WishListScreen(),
       item: ItemConfig(
-        icon: const Icon(Icons.favorite),
+        icon: const Icon(IconsaxPlusLinear.lovely),
         title: "WhishList",
         activeForegroundColor: const Color(0xffEB3030),
         inactiveForegroundColor: Colors.black,
@@ -38,19 +39,16 @@ class _MainScreenState extends State<MainScreen> {
     PersistentTabConfig(
       screen: const CartScreen(),
       item: ItemConfig(
-        icon: const Icon(Icons.shopping_cart),
-        title: "",
-        activeForegroundColor: Colors.white,
-      
-        inactiveBackgroundColor: const Color(0xffEB3030),
-        activeColorSecondary: Colors.red,
-        inactiveForegroundColor: Colors.red,
+        icon: const Icon(IconsaxPlusLinear.shopping_cart),
+        title: "Cart",
+        activeForegroundColor: const Color(0xffEB3030),
+        inactiveForegroundColor: Colors.black,
       ),
     ),
     PersistentTabConfig(
-      screen: const SearchScreen(),
+      screen: SearchScreen(),
       item: ItemConfig(
-        icon: const Icon(Icons.search),
+        icon: const Icon(IconsaxPlusLinear.search_normal),
         title: "Search",
         activeForegroundColor: const Color(0xffEB3030),
         inactiveForegroundColor: Colors.black,
@@ -59,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
     PersistentTabConfig(
       screen: const SettingScreen(),
       item: ItemConfig(
-        icon: const Icon(Icons.settings),
+        icon: const Icon(IconsaxPlusLinear.setting),
         title: "Setting",
         activeForegroundColor: const Color(0xffEB3030),
         inactiveForegroundColor: Colors.black,
@@ -69,8 +67,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
+    
       tabs: navBarsItems,
-      navBarBuilder: (navBarConfig) => Style15BottomNavBar(
+      navBarBuilder: (navBarConfig) => Style8BottomNavBar(
         navBarConfig: navBarConfig,
       ),
     );

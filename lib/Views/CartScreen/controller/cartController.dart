@@ -27,7 +27,7 @@ class Cartcontroller extends GetxController {
           .collection("Cart")
           .get();
       cartProducts.addAll(res.docs.map((e) => Product.fromJson(e.data())));
-   
+
       isLoading.value = false;
       update();
     } catch (e) {

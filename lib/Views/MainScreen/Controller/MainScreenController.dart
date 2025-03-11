@@ -12,12 +12,12 @@ class MainScreenController extends GetxController {
   void navChangeIndex (int index ) {
     currentIndex = index  ;
   }
-    List<Widget> navPages = const [
-      HomePage(), 
-      WishListScreen(),
-      CartScreen(),
+    List<Widget> navPages = [
+      const HomePage(), 
+      const WishListScreen(),
+      const CartScreen(),
       SearchScreen(),
-      SettingScreen(),
+      const SettingScreen(),
     ];
 
 

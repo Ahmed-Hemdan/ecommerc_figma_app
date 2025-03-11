@@ -1,5 +1,6 @@
 
 // import 'package:ecommerc_figma_app/Views/CartScreen/cart_screen.dart';
+import 'package:ecommerc_figma_app/Auth/View/LoginScreen/LoginScreen.dart';
 import 'package:ecommerc_figma_app/Views/MainScreen/MainScreen.dart';
 import 'package:ecommerc_figma_app/Views/OnboardingScreens/OnboardingScreen.dart';
 
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
             // home: const ProductDetailsScreen(),
             // home: const CheckoutScreen(),
             // home: const CartScreen()
+            // home: const LoginScreen(),
           ),
         );
       },

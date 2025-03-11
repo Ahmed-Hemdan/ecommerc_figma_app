@@ -28,7 +28,7 @@ class ProductDetailsCotroller extends GetxController {
   }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  bool isFavorite = false;
+  // RxBool isFavorite = false.obs;
 
   Cartcontroller cartController = Get.put(Cartcontroller());
 
@@ -52,7 +52,6 @@ class ProductDetailsCotroller extends GetxController {
             .collection("Cart")
             .doc()
             .set(product.toJson());
-
         cartController.cartProducts.add(product);
       }
     } catch (e) {
@@ -62,7 +61,7 @@ class ProductDetailsCotroller extends GetxController {
 
   WishListController wishListController = Get.put(WishListController());
 
-  void addToFavorite(Product product) {
+  void addAndRemveFavorite(Product product) {
     try {
       titleExistsInObjectList() {
         for (var obj in wishListController.wishListProducts) {
@@ -78,13 +77,26 @@ class ProductDetailsCotroller extends GetxController {
             .collection("Users")
             .doc(_auth.currentUser!.email)
             .collection("WhishList")
-            .doc()
+            .doc(product.title)
             .set(product.toJson());
+        product.isFavorite = true;
 
         wishListController.wishListProducts.add(product);
+      } else {
+        fireIns
+            .collection("Users")
+            .doc(_auth.currentUser!.email)
+            .collection("WhishList")
+            .doc(product.title)
+            .delete();
+
+        product.isFavorite = false;
+
+        wishListController.wishListProducts.remove(product);
       }
     } catch (e) {
       null;
     }
+    update();
   }
 }

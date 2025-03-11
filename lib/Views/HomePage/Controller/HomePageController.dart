@@ -17,23 +17,28 @@ class HomePageController extends GetxController {
   var fireIns = FirebaseFirestore.instance;
 // fetch categories
   RxList categoriesData = [].obs;
+  RxBool isCategoriesLoading = true.obs;
   Future<void> getCategories() async {
     try {
       categoriesData.clear();
       var data = await fireIns.collection("Categories").get();
       categoriesData.addAll(data.docs.map((doc) => doc.data()));
+      isCategoriesLoading.value = false;
     } catch (e) {
       null;
+      
     }
   }
 
   //fetch Banners
   RxList bannersData = [].obs;
+  RxBool isBannersLoading = true.obs;
   Future<void> getBanners() async {
     try {
       bannersData.clear();
       final data = await fireIns.collection("Banners").get();
       bannersData.addAll(data.docs.map((e) => e.data()));
+      isBannersLoading.value = false;
     } catch (e) {
       null;
     }

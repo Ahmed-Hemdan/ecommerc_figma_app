@@ -4,12 +4,14 @@ import 'package:ecommerc_figma_app/Views/HomePage/Components/DealOfTheDay.dart';
 import 'package:ecommerc_figma_app/Views/HomePage/Components/SpecialOffer.dart';
 import 'package:ecommerc_figma_app/Views/HomePage/Controller/HomePageController.dart';
 import 'package:ecommerc_figma_app/Views/HomePage/Components/ProductCard.dart';
+import 'package:ecommerc_figma_app/Views/HomePage/Controller/category_item.dart';
 import 'package:ecommerc_figma_app/Views/ProductDetails/ProductDetailsScreen.dart';
 import 'package:ecommerc_figma_app/Views/ProductDetails/controller/product_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart' as carousel;
 import 'package:screen_go/extensions/responsive_nums.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'Components/FlatAndHeel.dart';
 
@@ -42,18 +44,19 @@ class _HomePageState extends State<HomePage> {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      
                       GetX<HomePageController>(
-                        builder: (controller) => controller.bannersData.isEmpty
-                            ? Container()
-                            : carousel.CarouselSlider.builder(
+                        builder: (controller) {
+                          if (controller.bannersData.isEmpty &&
+                              controller.isBannersLoading.value == true) {
+                            return Skeletonizer(
+                              child: carousel.CarouselSlider.builder(
                                 itemCount: controller.bannersData.length,
                                 itemBuilder: (context, index, realIndex) {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8.0),
                                     child: Image.network(
-                                        "${controller.bannersData[index]["image"]}"),
+                                        "https://plus.unsplash.com/premium_photo-1701590725747-ac131d4dcffd?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2Vic2l0ZSUyMGJhbm5lcnxlbnwwfHwwfHx8MA%3D%3D"),
                                   );
                                 },
                                 options: carousel.CarouselOptions(
@@ -65,6 +68,32 @@ class _HomePageState extends State<HomePage> {
                                   },
                                 ),
                               ),
+                            );
+                          } else if (controller.bannersData.isEmpty &&
+                              controller.isBannersLoading.value == false) {
+                            return Container();
+                          } else {
+                            return carousel.CarouselSlider.builder(
+                              itemCount: controller.bannersData.length,
+                              itemBuilder: (context, index, realIndex) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Image.network(
+                                      "${controller.bannersData[index]["image"]}"),
+                                );
+                              },
+                              options: carousel.CarouselOptions(
+                                height: 28.h,
+                                viewportFraction: 1,
+                                autoPlay: true,
+                                onPageChanged: (index, reason) {
+                                  controller.changeIndex(index);
+                                },
+                              ),
+                            );
+                          }
+                        },
                       ),
                       GetX<HomePageController>(
                         builder: (context) => AnimatedSmoothIndicator(
@@ -98,61 +127,94 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Container(
-                          height: 12.h,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffFFFFFF),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: GetX<HomePageController>(
-                              builder: (controller) => _controller
-                                      .categoriesData.isEmpty
-                                  ? Container()
-                                  : ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      physics: const BouncingScrollPhysics(),
-                                      itemCount:
-                                          _controller.categoriesData.length,
-                                      itemBuilder: (context, index) {
-                                        return InkWell(
-                                          onTap: (){
-                                            
-                                            Get.toNamed("/CatScreen" , arguments: controller.categoriesData[index]["title"]);
-                                          },
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 0,
-                                                        horizontal: 8),
-                                                child: ClipOval(
-                                                  child: Image.network(
-                                                    _controller
-                                                            .categoriesData[index]
-                                                        ["image"],
-                                                    height: 7.h,
-                                                  ),
+                      GetX<HomePageController>(builder: (controller) {
+                        if (controller.categoriesData.isEmpty &&
+                            controller.isCategoriesLoading.value == true) {
+                          return Skeletonizer(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
+                              child: Container(
+                                height: 12.h,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffFFFFFF),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 0, horizontal: 8),
+                                            child: ClipOval(
+                                              child: Image.network(
+                                                "https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=",
+                                                height: 7.h,
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    const Image(
+                                                  image: AssetImage(
+                                                      "assets/Images/empty_image.jpj"),
                                                 ),
                                               ),
-                                              Text(
-                                                _controller.categoriesData[index]
-                                                    ["title"],
-                                                style: TextStyle(fontSize: 15.sp),
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                        );
-                                      },
-                                    ),
+                                          Text(
+                                            "sdfds",
+                                            style: TextStyle(fontSize: 15.sp),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
+                          );
+                        } else if (controller.categoriesData.isEmpty &&
+                            controller.isCategoriesLoading.value == false) {
+                          return Container();
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Container(
+                              height: 12.h,
+                              decoration: BoxDecoration(
+                                color: const Color(0xffFFFFFF),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount: controller.categoriesData.length,
+                                  itemBuilder: (context, index) {
+                                    return CatigoeryItem(
+                                      controller: _controller,
+                                      index: index,
+                                      onTap: () {
+                                        Get.toNamed("/CatScreen",
+                                            arguments:
+                                                controller.categoriesData[index]
+                                                    ["title"]);
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                      }),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Container(
@@ -185,6 +247,9 @@ class _HomePageState extends State<HomePage> {
                                                 Get.to(
                                                   const ProductDetailsScreen(),
                                                   arguments: Product(
+                                                    isFavorite: controller
+                                                        .allProducts[index]
+                                                        .isFavorite,
                                                     title: controller
                                                         .allProducts[index]
                                                         .title,
@@ -292,35 +357,39 @@ class _HomePageState extends State<HomePage> {
                                                 Get.lazyPut(
                                                   () => ProductDetailsCotroller(
                                                     controller
-                                                        .allProducts[index+4],
+                                                        .allProducts[index + 4],
                                                   ),
                                                 );
                                                 Get.to(
                                                   const ProductDetailsScreen(),
                                                   arguments: Product(
+                                                    isFavorite: controller
+                                                        .allProducts[index + 4]
+                                                        .isFavorite,
                                                     title: controller
-                                                        .allProducts[index+4]
+                                                        .allProducts[index + 4]
                                                         .title,
                                                     image: controller
-                                                        .allProducts[index+4]
+                                                        .allProducts[index + 4]
                                                         .image,
                                                     oldPrice: controller
-                                                        .allProducts[index+4]
+                                                        .allProducts[index + 4]
                                                         .oldPrice,
                                                     realTimePrice: controller
-                                                        .allProducts[index+4]
+                                                        .allProducts[index + 4]
                                                         .realTimePrice,
                                                     sale: controller
-                                                        .allProducts[index+4]
+                                                        .allProducts[index + 4]
                                                         .sale,
                                                     rate: controller
-                                                        .allProducts[index+4]
+                                                        .allProducts[index + 4]
                                                         .rate,
                                                     description: controller
-                                                        .allProducts[index+4]
+                                                        .allProducts[index + 4]
                                                         .description,
                                                     cat: controller
-                                                        .allProducts[index+4].cat,
+                                                        .allProducts[index + 4]
+                                                        .cat,
                                                   ),
                                                 );
                                               },
@@ -383,6 +452,8 @@ class _HomePageState extends State<HomePage> {
                                     Get.to(
                                       const ProductDetailsScreen(),
                                       arguments: Product(
+                                        isFavorite: controller
+                                            .allProducts[index].isFavorite,
                                         title:
                                             controller.allProducts[index].title,
                                         image:
@@ -427,3 +498,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
